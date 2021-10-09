@@ -263,8 +263,8 @@ class UVPanelPreferences(AddonPreferences):
 
         row = layout.row()
         col = row.column()
-        col.label(text="Tab Category:")
-        col.prop(self, "category", text="")
+#         col.label(text="Tab Category:")
+#         col.prop(self, "category", text="")
 
         row = layout.row()
         row.label(text="Recommended addons")

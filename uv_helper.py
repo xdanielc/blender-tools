@@ -283,12 +283,6 @@ class UVPanelPreferences(AddonPreferences):
             row.label(text="UV Squares", icon='CHECKMARK')
         row.operator("wm.url_open", text="URL", icon='URL').url = "https://github.com/Radivarig/UvSquares"
 
-        col = layout.column()
-        col.label(text="Shortchuts added:")
-        col.label(text="Select islands with double click and shift double click")
-        col.label(text="Select more or less with shift ctrl + mouse wheel")
-        col.label(text="Select next or prev with shift + mouse wheel")
-
 
 classes = (
     UV_OT_SmoothSplit,

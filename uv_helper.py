@@ -29,7 +29,7 @@ bl_info = {
     "author": "Daniel Calderón",
     "description": "UV Panel",
     "blender": (2, 80, 0),
-    "version": (0, 0, 1),
+    "version": (0, 0, 2),
     "location": "UV area > Toolbox",
     "warning": "",
     "doc_url": "https://github.com/xdanielc",
@@ -124,7 +124,10 @@ class UV_PT_uv_helper(bpy.types.Panel):
         row.scale_y = 1.5
         row.operator("uv.align", text="Al X").axis = 'ALIGN_X'
         row.operator("uv.align").axis = 'ALIGN_S'
-        row.operator("uv.turn", icon='LOOP_FORWARDS').ccw = False
+        if hasattr(bpy.types, "UV_OT_turn"):
+            row.operator("uv.turn", icon='LOOP_FORWARDS').ccw = False
+        else:
+            row.label(text="BsMax missing", icon='ERROR')
         row = col.row(align=True)
         row.scale_y = 1.5
         row.operator("uv.align", text="Al Y").axis = 'ALIGN_Y'
@@ -132,7 +135,10 @@ class UV_PT_uv_helper(bpy.types.Panel):
             row.operator("uv.textools_island_align_edge", text="Edge", icon='FILE_REFRESH')
         else:
             row.label(text="Textools missing", icon='ERROR')
-        row.operator("uv.turn", icon='LOOP_BACK').ccw = True
+        if hasattr(bpy.types, "UV_OT_turn"):
+            row.operator("uv.turn", icon='LOOP_BACK').ccw = True
+        else:
+            row.label(text="BsMax missing", icon='ERROR')
         
         
         layout.label(text="Brush")
@@ -282,6 +288,13 @@ class UVPanelPreferences(AddonPreferences):
         else:
             row.label(text="UV Squares", icon='CHECKMARK')
         row.operator("wm.url_open", text="URL", icon='URL').url = "https://github.com/Radivarig/UvSquares"
+        
+        row = layout.row()
+        if not hasattr(bpy.types, "UV_OT_turn"):
+            row.label(text="Bs Max", icon='ERROR')
+        else:
+            row.label(text="Bs Max", icon='CHECKMARK')
+        row.operator("wm.url_open", text="URL", icon='URL').url = "https://github.com/NevilArt/BsMax_2_80/"
 
 
 classes = (
